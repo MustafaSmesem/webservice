@@ -32,20 +32,23 @@ public class BootstrapDB implements ApplicationRunner {
     @Value("${application.db-init-checker:/tmp/.initDB}")
     private String checkerPath;
 
+    @Value("${application.title}")
+    private String appName;
+
     @Override
     public void run(ApplicationArguments args) {
         if (alreadyInitialized()) {
-            Log.warn("Database already initialized, TodoList backend server has been started");
+            Log.warn("Database already initialized, %s backend server has been started", appName);
             return;
         }
         Log.warn("Initializing database...");
         mongoTemplate.getDb().drop();
-        var role1 = createRole("STANDARD_USER", "Standard User - Has no admin rights");
-        var role2 = createRole("ADMIN_USER", "Admin User - Has permission to perform admin tasks");
-        createUser("Admin", "USER", "admin@domain.test", "1234" , true, Arrays.asList(role1, role2));
-        createUser("Standard", "USER", "user@domain.test", "1234" , false, List.of(role1));
-        Log.warn("New users has been added: \nadmin@doamin.test -> 1234\nuser@doamin.test -> 1234");
-        Log.warn("TodoList backend server has been started");
+        var role1 = createRole("COMPANY_USER", "Standard User - Has no admin rights");
+        var role2 = createRole("COMPANY_ADMIN_USER", "Company Admin User - Has permission to perform admin tasks on it's company");
+        var role3 = createRole("ADMIN_USER", "Admin User - Has permission to perform admin tasks");
+        createUser("Mustafa", "SAMISM", "mustafa.smesem@gmail.com", "1234" , true, Arrays.asList(role1, role2, role3));
+        createUser("ANAS", "THALJEH", "anasthaljeh@gmail.com", "1234" , true, List.of(role1, role2, role3));
+        Log.warn("%s backend server has been started", appName);
     }
 
     private Role createRole(String name, String description) {
@@ -62,6 +65,7 @@ public class BootstrapDB implements ApplicationRunner {
         user.setAdmin(isAdmin);
         user.setRoles(roles);
         user = userRepository.save(user);
+        Log.warn("- Create user [%s %s]", user.getName(), user.getSurname());
     }
 
 
