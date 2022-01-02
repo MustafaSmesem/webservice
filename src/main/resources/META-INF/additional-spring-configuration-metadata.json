@@ -1,0 +1,49 @@
+{
+  "properties": [
+    {
+      "name": "application.title",
+      "type": "java.lang.String",
+      "description": "The title of my application."
+    },
+    {
+      "name": "application.version",
+      "type": "java.lang.String",
+      "description": "The version of my application."
+    },
+    {
+      "name": "application.db-init-checker",
+      "type": "java.lang.String",
+      "description": "The path of file that program will add after initialize the db."
+    },
+    {
+      "name": "application.db-init",
+      "type": "java.lang.String",
+      "description": "Set true to initialize database."
+    },
+    {
+      "name": "rabbitmq.notification.exchange",
+      "type": "java.lang.String",
+      "description": "Define the rabbitMQ exchange name for notifications."
+    },
+    {
+      "name": "rabbitmq.notification.queue.add",
+      "type": "java.lang.String",
+      "description": "Define the rabbitMQ queue name for notifications add."
+    },
+    {
+      "name": "rabbitmq.notification.queue.remove",
+      "type": "java.lang.String",
+      "description": "Define the rabbitMQ queue name for notifications remove."
+    },
+    {
+      "name": "rabbitmq.notification.route.add",
+      "type": "java.lang.String",
+      "description": "Define the rabbitMQ route for bind notifications add queue with notification exchange."
+    },
+    {
+      "name": "rabbitmq.notification.route.remove",
+      "type": "java.lang.String",
+      "description": "Define the rabbitMQ route for bind notifications remove queue with notification exchange."
+    }
+  ]
+}

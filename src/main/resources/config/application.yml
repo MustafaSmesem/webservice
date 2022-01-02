@@ -1,0 +1,53 @@
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  data:
+    mongodb:
+      database: webservice
+      auto-index-creation: true
+
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  notification:
+    exchange: service.notification.exchange
+    queue:
+      add: service.notification.add.queue
+      remove: service.notification.remove.queue
+    route:
+      add:  service.notification.add.route.#
+      remove: service.notification.remove.route.#
+
+
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    mongodb:
+      uri:  ${DB_URL}
+
+  rabbitmq:
+    host: ${RMQ_HOST}
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  notification:
+    exchange: service.notification.exchange
+    queue:
+      add: service.notification.add.queue
+      remove: service.notification.remove.queue
+    route:
+      add:  service.notification.add.route.#
+      remove: service.notification.remove.route.#
